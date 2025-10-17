@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Lip Gloss", "price": 350, "image": "lipgloss.png", "quantity": 20 },
+  { "id": 2, "name": "Face Mask", "price": 500, "image": "facemask.png", "quantity": 15 },
+  { "id": 3, "name": "Body Lotion", "price": 750, "image": "lotion.png", "quantity": 10 }
+]
