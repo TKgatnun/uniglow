@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart – UniGlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar reused -->
+  <nav class="navbar">
+    <div class="logo"><h2>UniGlow</h2></div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/feedback">Feedback</a></li>
+      <li><a href="/admin">Admin</a></li>
+    </ul>
+    <div class="cart">
+      <svg class="cart-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45C8.89 16.37 9.5 17 10.28 17h7.45v-2H10.8c-.09 0-.17-.05-.22-.12l.03-.06L11.1 15h6.45c.75 0 1.41-.41 1.75-1.03L21.92 6.86A1.003 1.003 0 0 0 21 6H7.42l-.94-2zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2z" />
+      </svg>
+      <span id="cart-count">0</span>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Your Cart 🛍️</h1>
+  </header>
+
+  <main class="cart-page">
+    <div id="cart-container" class="cart-container"></div>
+    <div id="cart-total" class="cart-total"></div>
+  </main>
+
+  <script src="/js/cart.js"></script>
+</body>
+</html>
