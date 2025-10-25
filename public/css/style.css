@@ -20,6 +20,16 @@ body {
   z-index: 100;
 }
 
+/* Hamburger Menu Icon (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.menu-toggle .bar { width: 25px; height: 3px; background-color: #333; border-radius: 2px; }
+
 /* Logo Section */
 .logo h2 {
   color: #b30059;
@@ -543,6 +553,35 @@ header p {
   }
 }
 
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide links by default on mobile */
+    position: absolute;
+    top: 65px; /* Position below navbar */
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-bg-color, #fff);
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px 0;
+  }
+
+  .nav-links.active {
+    display: flex; /* Show links when menu is open */
+  }
+
+  .nav-links li {
+    padding: 15px 0;
+  }
+
+  .menu-toggle {
+    display: flex; /* Show hamburger icon on mobile */
+  }
+}
+
 /* Dark Mode Toggle Button */
 .dark-mode-button {
   background-color: #e40bae;
@@ -570,6 +609,10 @@ body.dark-mode {
 body.dark-mode .navbar {
   background-color: #2c2c2c; /* Darker gray for navbar */
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .menu-toggle .bar {
+  background-color: #e0e0e0; /* Lighter bar color for dark mode */
 }
 
 body.dark-mode .logo h2 {
