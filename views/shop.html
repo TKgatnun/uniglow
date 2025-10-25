@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard – UniGlow</title>
+  <title>Shop All Products – UniGlow</title>
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -20,9 +20,9 @@
     </div></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
-      <li><a href="/shop">Shop</a></li>
+      <li class="active"><a href="/shop">Shop</a></li>
       <li><a href="/feedback">Feedback</a></li>
-      <li class="active"><a href="/admin">Admin</a></li>
+      <li><a href="/admin">Admin</a></li>
     </ul>
     <div class="user-actions">
       <a href="/login.html" id="login-link" class="nav-button">Login / Sign Up</a>
@@ -34,29 +34,31 @@
         <path fill="currentColor" d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45C8.89 16.37 9.5 17 10.28 17h7.45v-2H10.8c-.09 0-.17-.05-.22-.12l.03-.06L11.1 15h6.45c.75 0 1.41-.41 1.75-1.03L21.92 6.86A1.003 1.003 0 0 0 21 6H7.42l-.94-2zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2z" />
       </svg>
       <span id="cart-count">0</span>
+      <div class="cart-dropdown" id="cart-dropdown">
+        <ul id="cart-items-list"></ul>
+        <a href="/cart.html" class="view-cart-btn">View Full Cart</a>
+      </div>
     </div>
   </nav>
 
   <header>
-    <h1>Admin Dashboard</h1>
-    <p>Manage your store's products, orders, and content.</p>
+    <h1>Our Collection</h1>
+    <p>Find your glow with our curated selection of products.</p>
   </header>
 
-  <main class="admin-dashboard">
-    <a href="#" class="admin-card">
-      <h3>Manage Products</h3>
-      <p>Add, edit, or remove products from your catalog.</p>
-    </a>
-    <a href="#" class="admin-card">
-      <h3>View Orders</h3>
-      <p>Review and process incoming customer orders.</p>
-    </a>
-    <a href="#" class="admin-card">
-      <h3>Customer Feedback</h3>
-      <p>Read and respond to messages from your customers.</p>
-    </a>
-  </main>
+  <!-- Filter and Search Controls -->
+  <div class="filter-controls">
+    <input type="text" id="search-bar" placeholder="Search for products...">
+    <select id="category-filter">
+      <option value="all">All Categories</option>
+      <!-- Categories will be populated by JavaScript -->
+    </select>
+  </div>
+
+  <!-- Product Grid -->
+  <main id="products" class="products-grid"></main>
 
   <script src="/js/script.js"></script>
+  <script src="/js/shop.js"></script>
 </body>
 </html>

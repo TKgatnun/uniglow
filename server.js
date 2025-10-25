@@ -43,4 +43,16 @@ app.get('/checkout', (req, res) => {
   res.redirect('/checkout.html');
 });
 
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
+
+app.get('/signup.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'signup.html'));
+});
+
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

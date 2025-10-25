@@ -12,6 +12,12 @@
 
   <!-- Navigation Bar (same as index.html) -->
   <nav class="navbar">
+    <div class="menu-toggle" id="menu-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    
     <a href="/" class="logo-link"><div class="logo">
       <h2>UniGlow</h2>
     </div></a>
@@ -21,6 +27,10 @@
       <li><a href="/feedback">Feedback</a></li>
       <li><a href="/admin">Admin</a></li>
     </ul>
+    <div class="user-actions">
+      <a href="/login.html" id="login-link" class="nav-button">Login / Sign Up</a>
+      <a href="#" id="logout-link" class="nav-button" style="display: none;">Logout</a>
+    </div>
     <button id="dark-mode-toggle" class="dark-mode-button">Dark Mode</button>
     <div class="cart" aria-label="Shopping cart">
       <svg class="cart-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -35,7 +45,19 @@
   </nav>
 
   <!-- Main Product Detail Section -->
-  <main id="product-detail-container" class="product-detail-page"></main>
+  <main>
+    <div id="product-detail-container" class="product-detail-page">
+      <!-- Product details will be loaded here by product.js -->
+    </div>
+
+    <!-- Related Products Section -->
+    <section class="related-products">
+      <h2>You Might Also Like</h2>
+      <div id="related-products-container" class="products-grid">
+        <!-- Related products will be dynamically inserted here -->
+      </div>
+    </section>
+  </main>
 
   <script src="/js/script.js"></script>
   <script src="/js/product.js"></script>

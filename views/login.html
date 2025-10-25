@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard – UniGlow</title>
+  <title>Login - UniGlow</title>
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -22,7 +22,7 @@
       <li><a href="/">Home</a></li>
       <li><a href="/shop">Shop</a></li>
       <li><a href="/feedback">Feedback</a></li>
-      <li class="active"><a href="/admin">Admin</a></li>
+      <li><a href="/admin">Admin</a></li>
     </ul>
     <div class="user-actions">
       <a href="/login.html" id="login-link" class="nav-button">Login / Sign Up</a>
@@ -37,26 +37,30 @@
     </div>
   </nav>
 
-  <header>
-    <h1>Admin Dashboard</h1>
-    <p>Manage your store's products, orders, and content.</p>
-  </header>
-
-  <main class="admin-dashboard">
-    <a href="#" class="admin-card">
-      <h3>Manage Products</h3>
-      <p>Add, edit, or remove products from your catalog.</p>
-    </a>
-    <a href="#" class="admin-card">
-      <h3>View Orders</h3>
-      <p>Review and process incoming customer orders.</p>
-    </a>
-    <a href="#" class="admin-card">
-      <h3>Customer Feedback</h3>
-      <p>Read and respond to messages from your customers.</p>
-    </a>
+  <main class="auth-page">
+    <div class="auth-container">
+      <h1>Welcome Back!</h1>
+      <p>Login to continue to checkout and view your order history.</p>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="auth-button">Login</button>
+      </form>
+      <div class="auth-switch">
+        <p>Don't have an account? <a href="/signup.html">Sign Up</a></p>
+      </div>
+    </div>
   </main>
 
   <script src="/js/script.js"></script>
+  <script>
+    // Basic login logic can go here later
+  </script>
 </body>
 </html>

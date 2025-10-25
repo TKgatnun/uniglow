@@ -13,6 +13,12 @@
 
   <!--  Navigation Bar -->
   <nav class="navbar">
+    <div class="menu-toggle" id="menu-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
     <a href="/" class="logo-link"><div class="logo">
       <h2>UniGlow</h2>
     </div></a>
@@ -22,6 +28,11 @@
       <li><a href="/feedback">Feedback</a></li>
       <li><a href="/admin">Admin</a></li>
     </ul>
+
+    <div class="user-actions">
+      <a href="/login.html" id="login-link" class="nav-button">Login / Sign Up</a>
+      <a href="#" id="logout-link" class="nav-button" style="display: none;">Logout</a>
+    </div>
 
     <button id="dark-mode-toggle" class="dark-mode-button">Dark Mode</button>
 
@@ -40,25 +51,29 @@
     </div>
   </nav>
 
-  <!-- Filter & Search Controls (Moved outside the navbar for better space usage) -->
-  <div class="filter-controls">
-    <input type="text" id="search-bar" placeholder="Search for products...">
-    <select id="sort-select">
-      <option value="default">Sort by</option>
-      <option value="price-asc">Price: Low to High</option>
-      <option value="price-desc">Price: High to Low</option>
-      <option value="name-asc">Name: A to Z</option>
-      <option value="name-desc">Name: Z to A</option>
-    </select>
-  </div>
-
   <!-- 💅🏽 Header (You can keep this or shorten it) -->
   <header>
     <h1>Beauty at Your Budget 💅🏽</h1>
+    <p>Discover high-quality products without breaking the bank.</p>
+    <a href="/shop" class="cta-button">Shop All Products</a>
   </header>
 
-  <!-- 🛍 Product Section -->
-  <section id="products"></section>
+  <!-- 🛍 Product Sections -->
+  <main>
+    <section class="product-showcase">
+      <h2>New Arrivals</h2>
+      <div id="new-arrivals-grid" class="products-grid horizontal-scroll">
+        <!-- New arrival products will be loaded here -->
+      </div>
+    </section>
+
+    <section class="product-showcase">
+      <h2>Best Sellers</h2>
+      <div id="best-sellers-grid" class="products-grid horizontal-scroll">
+        <!-- Best seller products will be loaded here -->
+      </div>
+    </section>
+  </main>
 
   <script src="/js/script.js"></script>
 </body>
