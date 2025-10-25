@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -29,6 +29,18 @@ app.get('/feedback', (req, res) => {
 
 app.get('/shop', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'shop.html'));
+});
+
+app.get('/product.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'product.html'));
+});
+
+app.get('/checkout.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'checkout.html'));
+});
+
+app.get('/checkout', (req, res) => {
+  res.redirect('/checkout.html');
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

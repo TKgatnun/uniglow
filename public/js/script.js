@@ -1,43 +1,83 @@
+let allProducts = []; // To store the master list of products
+
 async function loadProducts() {
   const response = await fetch('/data/products.json');
-  const products = await response.json();
+  allProducts = await response.json();
+  renderProducts(allProducts); // Initial render of all products
+}
 
+function renderProducts(productsToRender) {
   const container = document.getElementById('products');
-  container.innerHTML = products.map(p => `
-    <div class="product">
-      <img src="/images/${p.image}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>KES ${p.price}</p>
-      <button onclick="addToCart('${p.name}', ${p.price}, '${p.image}')">Add to Cart</button>
+  if (!container) return;
 
+  if (productsToRender.length === 0) {
+    container.innerHTML = '<p class="no-results">No products match your search.</p>';
+    return;
+  }
+
+  container.innerHTML = productsToRender.map(p => `
+    <div class="product">
+      <a href="/product.html?id=${p.id}" class="product-link" aria-label="View details for ${p.name}">
+        <img src="/images/${p.image}" alt="${p.name}" loading="lazy">
+        <h3>${p.name}</h3>
+        <p>KES ${p.price}</p>
+      </a>
+      <button onclick="addToCart('${p.id}', '${p.name}', ${p.price}, '${p.image}')">Add to Cart</button>
     </div>
   `).join('');
 }
 
 loadProducts();
 
-/*let cartCount = 0;
+function applyFiltersAndSort() {
+  let filteredProducts = [...allProducts];
+  const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+  const sortValue = document.getElementById('sort-select').value;
 
-document.addEventListener('click', (e) => {
-  if (e.target.textContent === 'Add to Cart') {
-    cartCount++;
-    document.getElementById('cart-count').textContent = cartCount;
+  // Apply search filter
+  if (searchTerm) {
+    filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(searchTerm));
   }
-});
-*/
+
+  // Apply sort
+  switch (sortValue) {
+    case 'price-asc': filteredProducts.sort((a, b) => a.price - b.price); break;
+    case 'price-desc': filteredProducts.sort((a, b) => b.price - a.price); break;
+    case 'name-asc': filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); break;
+    case 'name-desc': filteredProducts.sort((a, b) => b.name.localeCompare(a.name)); break;
+  }
+
+  renderProducts(filteredProducts);
+}
 
 let cart = [];
 
-function addToCart(name, price, image) {
-  const product = { name, price, image };
-  cart.push(product);
+// Helper to dispatch a custom event when the cart changes
+function dispatchCartUpdateEvent() {
+  document.dispatchEvent(new CustomEvent('cartUpdated'));
+}
+
+function addToCart(id, name, price, image) {
+  // Find if the product is already in the cart
+  const existingItem = cart.find(item => item.id === id);
+
+  if (existingItem) {
+    // If it exists, just increase the quantity
+    existingItem.quantity++;
+  } else {
+    // If not, add it to the cart with quantity 1
+    const product = { id, name, price, image, quantity: 1 };
+    cart.push(product);
+  }
+
   updateCartCount();
   saveCart();
-  renderCartDropdown();
+  dispatchCartUpdateEvent(); // Notify other parts of the app that cart has changed
 }
 
 function updateCartCount() {
-  document.getElementById('cart-count').textContent = cart.length;
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById('cart-count').textContent = totalItems;
 }
 
 function saveCart() {
@@ -49,9 +89,8 @@ window.onload = () => {
   if (savedCart) {
     cart = savedCart;
     updateCartCount();
+    dispatchCartUpdateEvent(); // Notify other components to render with the loaded cart
   }
-  // Render the dropdown so saved items are visible on hover
-  renderCartDropdown();
 };
 
 function renderCartDropdown() {
@@ -63,14 +102,14 @@ function renderCartDropdown() {
     return;
   }
 
-  dropdown.innerHTML = cart.map(item => `
+  dropdown.innerHTML = cart.map((item, index) => `
     <li>
       <img src="/images/${item.image}" alt="${item.name}">
       <div class="cart-item-info">
         <strong>${item.name}</strong><br>
-        <small>KES ${item.price}</small>
+        <small>${item.quantity} &times; KES ${item.price.toFixed(2)}</small>
       </div>
-      <button class="remove-item" data-index="${cart.indexOf(item)}" aria-label="Remove ${item.name}">&times;</button>
+      <button class="remove-item" data-index="${index}" aria-label="Remove ${item.name}">&times;</button>
     </li>
   `).join('');
 }
@@ -81,7 +120,7 @@ function removeFromCart(index) {
   cart.splice(index, 1);
   saveCart();
   updateCartCount();
-  renderCartDropdown();
+  dispatchCartUpdateEvent(); // Notify other parts of the app that cart has changed
 }
 
 // Event delegation for remove buttons inside the dropdown
@@ -91,6 +130,9 @@ document.addEventListener('click', (e) => {
     removeFromCart(idx);
   }
 });
+
+// Re-render dropdown whenever cart is updated
+document.addEventListener('cartUpdated', renderCartDropdown);
 
 // Toggle cart dropdown on click (use .open class so mobile can reuse logic)
 const cartEl = document.querySelector('.cart');
@@ -113,3 +155,48 @@ if (cartEl) {
     if (e.key === 'Escape') cartEl.classList.remove('open');
   });
 }
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+function enableDarkMode() {
+  document.body.classList.add('dark-mode');
+  localStorage.setItem('darkMode', 'enabled');
+  if (darkModeToggle) {
+    darkModeToggle.textContent = 'Light Mode'; // Update button text
+  }
+}
+
+function disableDarkMode() {
+  document.body.classList.remove('dark-mode');
+  localStorage.setItem('darkMode', 'disabled');
+  if (darkModeToggle) {
+    darkModeToggle.textContent = 'Dark Mode'; // Update button text
+  }
+}
+
+// Check for saved preference on load
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    enableDarkMode();
+  } else {
+    disableDarkMode(); // Ensure button text is correct if no preference or disabled
+  }
+
+  // Event listener for the toggle button
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+      if (document.body.classList.contains('dark-mode')) {
+        disableDarkMode();
+      } else {
+        enableDarkMode();
+      }
+    });
+  }
+
+  // Event listeners for search and sort
+  const searchBar = document.getElementById('search-bar');
+  const sortSelect = document.getElementById('sort-select');
+  if (searchBar) searchBar.addEventListener('input', applyFiltersAndSort);
+  if (sortSelect) sortSelect.addEventListener('change', applyFiltersAndSort);
+});

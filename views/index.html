@@ -11,17 +11,20 @@
 </head>
 <body>
 
-  <!-- 🌸 Navigation Bar -->
+  <!--  Navigation Bar -->
   <nav class="navbar">
-    <div class="logo">
+    <a href="/" class="logo-link"><div class="logo">
       <h2>UniGlow</h2>
-    </div>
+    </div></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/shop">Shop</a></li>
       <li><a href="/feedback">Feedback</a></li>
       <li><a href="/admin">Admin</a></li>
     </ul>
+
+    <button id="dark-mode-toggle" class="dark-mode-button">Dark Mode</button>
+
     <div class="cart" aria-label="Shopping cart">
       <!-- Font Awesome icon (kept as first choice) -->
       <i class="fas fa-shopping-cart" aria-hidden="true"></i>
@@ -36,6 +39,18 @@
      </div>
     </div>
   </nav>
+
+  <!-- Filter & Search Controls (Moved outside the navbar for better space usage) -->
+  <div class="filter-controls">
+    <input type="text" id="search-bar" placeholder="Search for products...">
+    <select id="sort-select">
+      <option value="default">Sort by</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="name-asc">Name: A to Z</option>
+      <option value="name-desc">Name: Z to A</option>
+    </select>
+  </div>
 
   <!-- 💅🏽 Header (You can keep this or shorten it) -->
   <header>
